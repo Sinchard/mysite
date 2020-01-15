@@ -11,23 +11,24 @@ class BaseModel(models.Model):
 
 
 class Fiction(BaseModel):
-    fiction_id = models.PositiveIntegerField(null=False)
+    fiction_id = models.PositiveIntegerField(null=False, db_index=True)
+    save = models.BooleanField(default=True)
 
     def __str__(self):
         return "fiction name:{0},fiction url:{1}".format(self.name, self.url)
 
 
 class Chapter(BaseModel):
-    fiction_id = models.PositiveIntegerField(null=False)
-    chapter_id = models.DecimalField(max_digits=20, decimal_places=2, null=False)
+    fiction_id = models.PositiveIntegerField(null=False, db_index=True)
+    chapter_id = models.DecimalField(max_digits=20, decimal_places=2, null=False, db_index=True)
 
     def __str__(self):
         return "chapter name:{0},fiction url:{1}".format(self.name, self.url)
 
 
 class Content(models.Model):
-    fiction_id = models.PositiveIntegerField(null=False)
-    chapter_id = models.DecimalField(max_digits=20, decimal_places=2, null=False)
+    fiction_id = models.PositiveIntegerField(null=False, db_index=True)
+    chapter_id = models.DecimalField(max_digits=20, decimal_places=2, null=False, db_index=True)
     content = models.TextField()
 
     def __str__(self):
