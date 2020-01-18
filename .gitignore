@@ -1,4 +1,5 @@
 *.pyc
 .idea
 *.sqlite3
+*.csv
 reader/migrations
