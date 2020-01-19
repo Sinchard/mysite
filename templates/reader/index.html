@@ -5,24 +5,12 @@
 
 {% block content %}
 <h1>小说列表</h1>
-{% for fiction in fictions %}
+{% for fiction in page_obj %}
 <h2>
     <a href="{{ fiction.get_absolute_url }}">
         {{ fiction.name }}
     </a>
 </h2>
 {% endfor %}
-<div class="pagination">
-<span class="step-links">
-{% if page.has_previous %}
-<a href="?page={{ page.previous_page_number }}">Previous</a>
-{% endif %}
-<span class="current">
-Page {{ page.number }} of {{ page.paginator.num_pages }}.
-</span>
-{% if page.has_next %}
-<a href="?page={{ page.next_page_number }}">Next</a>
-{% endif %}
-</span>
-</div>
+{% include "pagination.html" %}
 {% endblock %}
