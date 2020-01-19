@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ fiction.name }}
+{% endblock %}
+
+{% block content %}
+<h1>{{ fiction.name }}</h1>
+{% for chapter in chapters %}
+<h2>
+    <a href="{{ chapter.get_absolute_url }}">
+        {{ chapter.name }}
+    </a>
+</h2>
+{% endfor %}
+{% endblock %}
