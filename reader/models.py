@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 # Create your models here.
@@ -18,6 +19,10 @@ class Fiction(BaseModel):
     def __str__(self):
         return "fiction name:{0},fiction url:{1}".format(self.name, self.url)
 
+    def get_absolute_url(self):
+        return '/reader/{0}/'.format(self.fiction_id)
+
+
 
 class Chapter(BaseModel):
     fiction_id = models.PositiveIntegerField(null=False, db_index=True)
@@ -25,6 +30,14 @@ class Chapter(BaseModel):
 
     def __str__(self):
         return "chapter name:{0},fiction url:{1}".format(self.name, self.url)
+
+    def get_absolute_url(self):
+        cid=0
+        if self.chapter_id==int(self.chapter_id):
+            cid=int(self.chapter_id)
+        else:
+            cid=str(self.chapter_id).replace('.','_')
+        return '/reader/{0}/{1}/'.format(self.fiction_id, cid)
 
 
 class Content(models.Model):
@@ -35,3 +48,6 @@ class Content(models.Model):
 
     def __str__(self):
         return "Content:{0}".format(self.content)
+
+    def get_absolute_url(self):
+        return '/reader/{0}/{1}/'.format(self.fiction_id, "{.2f%}".format(self.chapter_id))
