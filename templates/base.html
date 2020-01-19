@@ -52,7 +52,14 @@
 </nav>
 
 <div class="container">
-    <div class="col-10 offset-1">{% block content %}{% endblock %}</div>
+    <div id="content" class="col-10">
+    {% block content %}
+    {% endblock %}
+    </div>
+    <div id="sidebar"  class="col-2">
+    <h2>My blog</h2>
+    <p>This is my blog.</p>
+    </div>
 </div>
 
 
