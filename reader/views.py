@@ -1,9 +1,17 @@
-from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
+from django.views.generic import ListView
+
 from .models import Fiction, Chapter, Content
 
 
-# Create your views here.
+class PostListView(ListView):
+    queryset = Fiction.objects.all().order_by('fiction_id')
+    context_object_name = 'page_obj'
+    paginate_by = 50
+    template_name = 'reader/index.html'
+
+
 def index(request):
     print('fiction view')
     fictions = Fiction.objects.all()
@@ -17,7 +25,7 @@ def index(request):
     except EmptyPage:
         # If page is out of range deliver last page of results
         posts = paginator.page(paginator.num_pages)
-    return render(request, 'reader/index.html', {'fictions': fictions, 'page': page, 'title': '小说列表'})
+    return render(request, 'reader/index.html', {'page_obj': posts, 'page': page, 'title': '小说列表'})
 
 
 def getChapter(request, fid):
